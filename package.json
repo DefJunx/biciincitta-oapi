@@ -1,0 +1,44 @@
+{
+  "name": "biciincitta-oapi",
+  "version": "1.0.0",
+  "description": "Bici in citta Open API",
+  "main": "index.js",
+  "engines": {
+    "node": "15.6.0"
+  },
+  "scripts": {
+    "start": "node .",
+    "build": "babel --delete-dir-on-start --out-dir dist --copy-files --ignore \"**/__tests__/**,**/__mocks__/**\" --no-copy-ignored src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DefJunx/biciincitta-oapi.git"
+  },
+  "keywords": [
+    "bici",
+    "open",
+    "api"
+  ],
+  "author": "Daniele Cencig <daniele.cencig@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DefJunx/biciincitta-oapi/issues"
+  },
+  "homepage": "https://github.com/DefJunx/biciincitta-oapi#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "got": "^11.8.1",
+    "helmet": "^4.4.1",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.16",
+    "@babel/core": "^7.12.16",
+    "@babel/preset-env": "^7.12.16",
+    "@babel/register": "^7.12.13",
+    "nodemon": "^2.0.7"
+  }
+}
