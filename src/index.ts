@@ -1,7 +1,7 @@
 import app from "./app";
 import Logger from "./lib/logger";
 
-const port = +process.env.PORT;
+const port = +process.env.PORT || 3000;
 
 // TODO: Rate limiting
 // TODO: Authentication
@@ -9,3 +9,5 @@ const port = +process.env.PORT;
 app.listen(port, () => {
    Logger.info(`Listening on port ${port}`);
 });
+
+export default app
