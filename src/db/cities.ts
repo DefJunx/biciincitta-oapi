@@ -1,6 +1,5 @@
 import db from "./connection";
 import { City } from "../lib/utils";
-import Logger from "../lib/logger";
 
 const cities = db.get<DbCity>("cities");
 

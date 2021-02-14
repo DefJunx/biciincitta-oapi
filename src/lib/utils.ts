@@ -52,7 +52,9 @@ export async function fetchCities(): Promise<City[]> {
       });
    });
 
+   Logger.info("Saving cities to DB...");
    await saveCities(citiesForDB);
+   Logger.info("...Success");
 
    return cachedCities;
 }
