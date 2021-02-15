@@ -3,6 +3,7 @@ import cheerio from "cheerio";
 
 import Logger from "./logger";
 import { getCities, getCity, saveCities } from "../db/cities";
+import { getStations, saveStations } from "../db/stations";
 
 const CITIES_URL = "http://www.bicincitta.com/css/Portal_11/Pages/frmCercaComune.aspx";
 const CITIES_LINK_PART = "frmLeStazioni";
@@ -23,13 +24,14 @@ export async function fetchCities(): Promise<Partial<City>[]> {
 
    if (cachedCities.length > 0) {
       Logger.warning("Cached cities!");
-      return cachedCities;
+      return cachedCities.map(({ url, ...rest }) => rest);
    }
 
    try {
       const cities = await getCities();
       if (cities.length > 0) {
          cachedCities = cities;
+
          return cachedCities.map(({ url, ...rest }) => rest);
       }
    } catch (error) {
@@ -65,11 +67,17 @@ export async function fetchStations(id: number): Promise<Station[]> {
       return cachedStations[id];
    }
 
-   // TODO: Check in DB
+   const dbStations = await getStations();
+
+   if (dbStations.length > 0) {
+      cachedStations[id] = dbStations;
+
+      return cachedStations[id];
+   }
 
    cachedStations[id] = [];
 
-   const stations = cachedStations[id];
+   const stations: Station[] = [];
 
    const city = await getCity(id);
    const html = (await got(city.url)).body;
@@ -93,7 +101,9 @@ export async function fetchStations(id: number): Promise<Station[]> {
       stations.push(station);
    });
 
-   // TODO: Save to DB collection "stations"
+   Logger.info("Saving stations to DB...");
+   await saveStations(stations);
+   Logger.info("...Success");
 
    return stations;
 }
