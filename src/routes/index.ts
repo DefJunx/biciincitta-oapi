@@ -1,8 +1,12 @@
 import { Router } from "express";
-import citiesRouter from "./cities";
+import getCitiesRoutes from "./cities";
 
-const apiRouter = Router();
+function getMainRoutes() {
+   const apiRouter = Router();
 
-apiRouter.use("/cities", citiesRouter);
+   apiRouter.use("/cities", getCitiesRoutes());
 
-export default apiRouter;
+   return apiRouter;
+}
+
+export default getMainRoutes;
