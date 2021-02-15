@@ -1,7 +1,7 @@
 import path from "path";
 import winston from "winston";
 
-const logPath = path.resolve(__dirname, "../logs");
+const logPath = path.resolve(__dirname, "..", "..", "logs");
 
 const Logger = winston.createLogger({
    levels: winston.config.syslog.levels,
