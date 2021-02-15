@@ -79,13 +79,18 @@ export async function fetchStations(id: number): Promise<Station[]> {
    stationsHtml.each((i, el) => {
       const label = cheerio(el).find(STATION_NAME_SELECTOR);
       const availability = cheerio(el).find(".Red");
-
-      stations.push({
-         name: label.text(),
+      const station: Station = {
+         name: "",
          isActive: label.find(STATION_OPERATIVITY_SELECTOR).length === 0,
          availableBikes: +availability.html().split("<br>")[0].split(" ")[0],
          freeSpots: +availability.html().split("<br>")[1].split(" ")[0],
-      });
+      };
+
+      label.find(STATION_OPERATIVITY_SELECTOR).remove();
+
+      station.name = label.text();
+
+      stations.push(station);
    });
 
    // TODO: Save to DB collection "stations"
