@@ -4,7 +4,7 @@
    "description": "Bici in citta Open API",
    "main": "dist/index.js",
    "engines": {
-      "node": "15.6.0"
+      "node": "14.15.5"
    },
    "scripts": {
       "start": "node .",
